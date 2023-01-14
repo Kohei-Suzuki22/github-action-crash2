@@ -1,0 +1,26 @@
+# ワークフロー名
+name: First Workflow
+
+# イベントトリガー
+# workflow_dispatch: 手動実行(githubコンソール上で実行ボタンを押す。)
+on: [push,workflow_dispatch]
+
+
+# jobs
+## (jobsは複数書ける。デフォルトでは並列実行)
+jobs:
+  first-jobs:
+    # 実行する環境
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pring Greeting
+        run: echo "Hello World!"
+      - name: Pring goodBye
+        run: echo "Done -bye!"
+      - name: execute multi command
+        # run内で複数のコマンドを実行できる。( | を使う。)
+        run: |
+          echo "this is multi command1"
+          echo "this is multi command2"
+
+  

@@ -1,4 +1,4 @@
-name: test Project
+name: Deploy Project
 # トリガーの種類
 # 自動: [push, pull_request, create, fork, issues, issue_comment, watch, discussion, repository_dispatch, schedule, workflow_call]
 # 手動: [workflow_dispatch]
@@ -8,15 +8,15 @@ on:
     branches:
       - "master"
 jobs:
-  hello-test:
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: actions/checkout
-      # uses: 公開されたパッケージ@バージョン
+        # uses: 公開されたパッケージ@バージョン
         uses: actions/checkout@v3
         # with: オプションの設定
         # with:
-          # repository: ''    
+        # repository: ''
       - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
@@ -26,7 +26,19 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm test
-
-
-          
-
+  deploy:
+    # runs-onは、jobごとに定義する必要がある。 それぞれのjobは、物理的なマシーンが独立しているとみなされる。
+    runs-on: ubuntu-latest
+    steps:
+      - name: actions/checkout
+        uses: actions/checkout@v3
+      - name: Install NodeJSÏ
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        run: npm ci
+      - name: Build Project
+        run: npm run build
+      - name: Deploy
+        run: echo "Deploying ..."

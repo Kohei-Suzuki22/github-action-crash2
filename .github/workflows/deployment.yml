@@ -27,6 +27,8 @@ jobs:
       - name: Run tests
         run: npm test
   deploy:
+    # needs: 指定したjobが終わってから実行したい場合に使う。 needsに複数jobを指定することも可能 (ex) needs: [test, test2]
+    needs: test
     # runs-onは、jobごとに定義する必要がある。 それぞれのjobは、物理的なマシーンが独立しているとみなされる。
     runs-on: ubuntu-latest
     steps:

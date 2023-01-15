@@ -1,0 +1,32 @@
+name: test Project
+# トリガーの種類
+# 自動: [push, pull_request, create, fork, issues, issue_comment, watch, discussion, repository_dispatch, schedule, workflow_call]
+# 手動: [workflow_dispatch]
+# https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  hello-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: actions/checkout
+      # uses: 公開されたパッケージ@バージョン
+        uses: actions/checkout@v3
+        # with: オプションの設定
+        # with:
+          # repository: ''    
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install dependencies
+        # npm ci は、package.lock.jsonから依存関係をインストールする。npm installより早い。
+        run: npm ci
+      - name: Run tests
+        run: npm test
+
+
+          
+

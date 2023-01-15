@@ -34,7 +34,7 @@ jobs:
     steps:
       - name: actions/checkout
         uses: actions/checkout@v3
-      - name: Install NodeJSÏ
+      - name: Install NodeJS
         uses: actions/setup-node@v3
         with:
           node-version: 18
